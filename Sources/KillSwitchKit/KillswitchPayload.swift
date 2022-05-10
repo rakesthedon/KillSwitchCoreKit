@@ -13,7 +13,7 @@ public enum KillswitchType: String, Codable {
     case modal
     case banner
     
-    public static var `default`: KillswitchType { .fullscreen }
+    public static var `default`: KillswitchType { KillSwitchKitConfiguration.shared.defaultKillSwitch ?? .fullscreen }
 }
 
 public struct KillswitchPayload {
@@ -21,12 +21,14 @@ public struct KillswitchPayload {
     public let title: String
     public let body: String
     public let url: URL?
+    public let thumbnailUrl: URL?
     public let type: KillswitchType
     
-    public init(title: String, body: String, url: URL? = nil, type: KillswitchType = .default) {
+    public init(title: String, body: String, url: URL? = nil, thumbnailUrl: URL? = nil, type: KillswitchType = .default) {
         self.title = title
         self.body = body
         self.url = url
+        self.thumbnailUrl = thumbnailUrl
         self.type = type
     }
 }
@@ -38,6 +40,7 @@ extension KillswitchPayload: Codable {
         case body
         case url
         case type
+        case thumbnailUrl
     }
     
     public init(from decoder: Decoder) throws {
@@ -46,6 +49,7 @@ extension KillswitchPayload: Codable {
         self.title = try container.decode(String.self, forKey: .title)
         self.body = try container.decode(String.self, forKey: .body)
         self.url = try container.decodeIfPresent(URL.self, forKey: .url)
+        self.thumbnailUrl = try container.decodeIfPresent(URL.self, forKey: .thumbnailUrl)
         self.type = try container.decodeIfPresent(KillswitchType.self, forKey: .type) ?? .default
     }
 }
