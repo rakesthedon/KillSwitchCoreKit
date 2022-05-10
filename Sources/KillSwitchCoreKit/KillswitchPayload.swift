@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  KillswitchPayload.swift
+//  KillSwitchCoreKit
 //
 //  Created by Yannick Jacques on 2022-05-10.
 //
@@ -13,7 +13,7 @@ public enum KillswitchType: String, Codable {
     case modal
     case banner
     
-    public static var `default`: KillswitchType { KillSwitchKitConfiguration.shared.defaultKillSwitch ?? .fullscreen }
+    public static var `default`: KillswitchType { KillSwitchCoreKitConfiguration.shared.defaultKillSwitch ?? .fullscreen }
 }
 
 public struct KillswitchPayload {
